@@ -1,0 +1,39 @@
+module.exports = (sequelize, Sequelize) => {
+    return sequelize.define('question', {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        upVote: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
+        },
+        downVote: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0
+        },
+        question: Sequelize.STRING,
+        categories: Sequelize.STRING,
+        anonymous: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false
+        },
+        userId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'users', // 'users' refers to table name
+                key: 'id', // 'id' refers to column name in users table
+            }
+        },
+        createdAt: {
+            type: Sequelize.DATE(3),
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP(3)'),
+        },
+        updatedAt: {
+            type: Sequelize.DATE(3),
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+            onUpdate: Sequelize.literal('CURRENT_TIMESTAMP(3)')
+        }
+    })
+};
