@@ -4,19 +4,20 @@ var crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 var User = require('../sequelize').User;
+const queryHandler = require('./../handlers/query-handler');
 var moment=require('moment');
 
 passport.use(new LocalStrategy(
     {
-        usernameField: 'rollNumber',
+        usernameField: 'username',
         passwordField: 'password'
     },
-    (rollNumber, password, done) => {
+    (username, password, done) => {
         console.log('inside passport')
         var hash = crypto.createHash('md5').update(password).digest('hex');
         User.findOne({
             where: {
-                rollNumber: rollNumber
+                rollNumber: username
             }
         }).then(user => {
             if (!user) {
@@ -43,9 +44,10 @@ router.post('/', function (req, res, next) {
         if (info) { return res.send(info) }
         if (err) { return res.send(err) }
         if (!user) { return res.send('me'); }
-        req.login(user, (err) => {
+        req.login(user,async (err) => {
             console.log(req.user);
             req.session.loginTime=moment();
+            await queryHandler.makeUserOnline(req);
             return res.send({ "isAuthenticated": true, "user": user });
         })
     })(req, res, next);

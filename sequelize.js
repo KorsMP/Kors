@@ -7,6 +7,7 @@ var QuestionModel = require('./models/question')
 var AnswerModel = require('./models/answer')
 var QuestionCategoryMappingModel = require('./models/questionCategoryMapping')
 var FollowFollowerModel = require('./models/followFollower')
+var MessageModel = require('./models/message')
 var TempModel = require('./models/temp')
 
 const sequelize = new Sequelize(globals.db_name, globals.db_user, globals.db_password, {
@@ -23,6 +24,7 @@ const Question = QuestionModel(sequelize, Sequelize);
 const Answer = AnswerModel(sequelize, Sequelize);
 const QuestionCategoryMapping = QuestionCategoryMappingModel(sequelize, Sequelize);
 const FollowFollower = FollowFollowerModel(sequelize, Sequelize);
+const Message = MessageModel(sequelize, Sequelize);
 const Temp = TempModel(sequelize, Sequelize);
 
 User.hasMany(Question);
@@ -31,10 +33,11 @@ Question.hasMany(Answer);
 Question.hasMany(QuestionCategoryMapping);
 //Category.hasMany(QuestionCategoryMapping);
 User.hasMany(FollowFollower);
+User.hasMany(Message);
 
 sequelize.sync()
     .then(() => {
         console.log('database kors and tables have been created')
     });
 
-module.exports = { User, Category, Question, Answer, QuestionCategoryMapping, FollowFollower, Temp }; 
+module.exports = { User, Category, Question, Answer, QuestionCategoryMapping, FollowFollower, Message, Temp }; 

@@ -12,14 +12,45 @@ module.exports = (sequelize, Sequelize) => {
         },
         firstName: Sequelize.STRING,
         lastName: Sequelize.STRING,
+        middleName: Sequelize.STRING,
         email: Sequelize.STRING,
         userName: {
             type: Sequelize.STRING,
+            unique: true,
             allowNull: false
         },
         password: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        online: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        phone: {
+            type: Sequelize.STRING,
+        },
+        year: {
+            type: Sequelize.STRING,
+        },
+        branch: {
+            type: Sequelize.STRING,
+        },
+        section: {
+            type: Sequelize.STRING,
+        },
+        about: {
+            type: Sequelize.STRING,
+            defaultValue: ""
+        },
+        skills: {
+            type: Sequelize.STRING,
+            defaultValue: ""
+        },
+        socketId: {
+            type: Sequelize.STRING,
+            defaultValue: ""
         },
         createdAt: {
             type: Sequelize.DATE(3),

@@ -14,9 +14,11 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 0
         },
         answer: Sequelize.STRING,
+        displayName: Sequelize.STRING,
         anonymous: {
             type: Sequelize.BOOLEAN,
-            allowNull: false
+            allowNull: false,
+            defaultValue: false
         },
         userId: {
             type: Sequelize.INTEGER,

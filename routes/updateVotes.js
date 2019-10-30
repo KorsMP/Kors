@@ -8,6 +8,7 @@ router.post('/', function (req, res) {
         let id = req.body.id;
         let voteType = req.body.voteType;
         let table = req.body.table;
+        console.log(id, voteType, table)
         if (voteType == "upVote" && table == "answer")
             updateUpVoteAnswer(id, res);
         else if (voteType == "upVote" && table == "question")
